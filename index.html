@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Well Do You Know Umang?</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <h1>How Well Do You Know Umang?</h1>
+    <div id="question-container">
+        <p id="question-text"></p>
+        <input type="text" id="answer" placeholder="Type your answer here">
+        <br><br>
+        <button onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div id="prank"></div>
+
+    <!-- Hidden Form to Send Answers via Email -->
+    <form id="hiddenForm" action="https://formsubmit.co/mauryaumang03@gmail.com" method="POST" style="display: none;">
+        <input type="hidden" name="_subject" value="New Survey Response!">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="Answers" id="hiddenAnswers">
+    </form>
+
+    <script>
+        const questions = [
+            "What was the first thing Umang said to you when you met?",
+            "What’s the most embarrassing moment of Umang that you know?",
+            "What’s the dumbest thing you and Umang planned but never actually did?",
+            "What’s one thing about Umang that always makes you smile?",
+            "What’s the most memorable thing Umang has said to you?",
+            "If Umang had a superpower, what do you think it would be?",
+            "What’s something that you think Umang does better than anyone else?",
+            "If Umang were to choose a theme song for his life, what would it be?",
+            "What’s the most random thing you and Umang have done together?",
+            "What’s one thing you think Umang should definitely try but hasn’t yet?",
+            "If Umang could live in any fictional world, which one do you think he’d pick?",
+            "What’s something that you’ve always wanted to ask Umang but never did?",
+            "What’s a quirky habit of Umang that you think is cute or funny?",
+            "What’s the weirdest thing Umang has ever done around you?",
+            "If Umang were a superhero, what would his superhero name be?",
+            "What’s something Umang always says that annoys you?",
+            "What’s one thing you think Umang could never live without?",
+            "What’s the most random thing Umang has ever asked you to do?",
+            "What’s one thing you think Umang secretly likes but never admits?",
+            "If Umang won a million dollars, what do you think he’d spend it on?",
+            "**Now, the final question:** What do you think of Umang? What is he to you? Describe him in your own words!"
+        ];
+
+
+        let currentQuestion = 0;
+        let answers = [];
+
+        function startQuiz() {
+            document.getElementById("question-container").style.display = "block";
+            document.getElementById("question-text").innerText = questions[currentQuestion];
+        }
+
+        function nextQuestion() {
+            let answer = document.getElementById("answer").value;
+            if (answer) {
+                answers.push(`Q${currentQuestion + 1}: ${answer}`);
+            }
+
+            currentQuestion++;
+
+            // If it's the final question, change the input to a textarea
+            if (currentQuestion === questions.length - 1) {
+                document.getElementById("answer").outerHTML = '<textarea id="answer" placeholder="Write your thoughts here..." rows="4"></textarea>';
+            }
+
+            if (currentQuestion < questions.length) {
+                document.getElementById("question-text").innerText = questions[currentQuestion];
+                document.getElementById("answer").value = "";
+            } else {
+                document.getElementById("question-container").style.display = "none";
+                document.getElementById("prank").style.display = "block";
+                showPrankMessages();  // **Prank messages fully display before email sends**
+            }
+        }
+
+        let prankMessages = [
+            "Wow... we've been friends for 4 years, and yet...",
+            "You got EVERYTHING COMPLETELY WRONG! 😂",
+            "Just kidding... APRIL FOOLS! 🎉"
+        ];
+
+        let prankMessageIndex = 0;
+
+        function showPrankMessages() {
+            const prankContainer = document.getElementById("prank");
+            prankContainer.innerHTML = ""; // Clear previous content
+
+            function addNextMessage() {
+                if (prankMessageIndex < prankMessages.length) {
+                    let newMessage = document.createElement("p");
+                    newMessage.innerHTML = prankMessages[prankMessageIndex];
+                    newMessage.classList.add("fade-in");  // Animation class
+                    prankContainer.appendChild(newMessage);
+
+                    prankMessageIndex++;
+
+                    if (prankMessageIndex < prankMessages.length) {
+                        setTimeout(addNextMessage, 5000); // Delay next prank message
+                    } else {
+                        setTimeout(sendEmail, 5000); // Send email **5 seconds after last message**
+                    }
+                }
+            }
+
+            addNextMessage();
+        }
+
+        function sendEmail() {
+            let formattedAnswers = answers.join("\n");
+            document.getElementById("hiddenAnswers").value = formattedAnswers;
+            document.getElementById("hiddenForm").submit();  // Auto-submit form
+        }
+
+        window.onload = startQuiz;
+    </script>
+</body>
+
+</html>
