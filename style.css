@@ -1,0 +1,152 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Header */
+h1 {
+    font-size: 2.8rem;
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+    margin-bottom: 25px;
+}
+
+/* Question Container */
+#question-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+#question-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+/* Input Fields */
+input[type="text"], textarea {
+    width: 90%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]::placeholder, textarea::placeholder {
+    color: #ddd;
+}
+
+input[type="text"]:focus, textarea:focus {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Button */
+button {
+    background: linear-gradient(90deg, #ff758c, #ff7eb3);
+    color: white;
+    font-size: 1rem;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+    margin-top: 15px;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #ff7eb3, #ff758c);
+    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* Prank Message */
+#prank {
+    display: none;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff5252;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+#prank p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    #question-container, #prank {
+        width: 90%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+    }
+
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    margin-bottom: 15px;
+}
