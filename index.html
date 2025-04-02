@@ -28,6 +28,7 @@
 
     <script>
         const questions = [
+            "Hello, Your Name Please.",
             "What was the first thing Umang said to you when you met?",
             "What’s the most embarrassing moment of Umang that you know?",
             "What’s the dumbest thing you and Umang planned but never actually did?",
@@ -67,8 +68,7 @@
                 alert("Please answer the question before proceeding.");
                 return;
             }
-
-            answers.push(`Q${currentQuestion + 1}: ${answer}`);
+            answers.push(`Q${currentQuestion + 1} ${questions[currentQuestion]}: ${answer}`);
 
             currentQuestion++;
 
