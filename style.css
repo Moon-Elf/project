@@ -1,4 +1,14 @@
 /* Global Styles */
+:root {
+    --primary: #6C63FF;
+    --primary-light: #8A85FF;
+    --secondary: #FF6584;
+    --dark: #1A1A2E;
+    --light: #F5F5F7;
+    --gray: #E2E2E2;
+    --success: #4BB543;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,146 +17,291 @@
 }
 
 body {
-    background: linear-gradient(135deg, #1f1c2c, #928dab);
-    color: white;
+    background: linear-gradient(135deg, #1A1A2E, #16213E);
+    color: var(--light);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
+    overflow-x: hidden;
+    position: relative;
 }
 
-/* Header */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
 h1 {
     font-size: 2.8rem;
-    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
-    margin-bottom: 25px;
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* Question Container */
-#question-container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 30px;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.6s ease-in-out;
+.highlight {
+    display: inline-block;
+    position: relative;
 }
 
-#question-text {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #fff;
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: rgba(108, 99, 255, 0.3);
+    z-index: -1;
+    border-radius: 20px;
 }
 
-/* Input Fields */
-input[type="text"], textarea {
-    width: 90%;
-    padding: 12px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    margin-top: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+.subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+}
+
+/* Card Styles */
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    width: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+/* Replace with this */
+.progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.progress-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 5%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+    will-change: width;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    display: block;
+    text-align: right;
+}
+
+/* Question Styles */
+.question {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    color: white;
+}
+
+/* Input Styles */
+.input-container {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 1rem 0;
+    font-size: 1.1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
 }
 
 input[type="text"]::placeholder, textarea::placeholder {
-    color: #ddd;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 input[type="text"]:focus, textarea:focus {
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border-bottom-color: var(--primary);
 }
 
-/* Button */
-button {
-    background: linear-gradient(90deg, #ff758c, #ff7eb3);
+.underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.4s ease;
+}
+
+input[type="text"]:focus ~ .underline, textarea:focus ~ .underline {
+    width: 100%;
+}
+
+/* Button Styles */
+.btn-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
     color: white;
-    font-size: 1rem;
     border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
-    margin-top: 15px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
 }
 
-button:hover {
-    background: linear-gradient(90deg, #ff7eb3, #ff758c);
-    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
-    transform: scale(1.05);
+.btn-next:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
 }
 
-/* Prank Message */
-#prank {
+.btn-next svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-next:hover svg {
+    transform: translateX(5px);
+}
+
+/* Prank Card */
+.prank-card {
     display: none;
     background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    padding: 30px;
-    width: 80%;
-    max-width: 600px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #ff5252;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 2.5rem;
     text-align: center;
     animation: fadeIn 0.8s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-#prank p {
-    margin-bottom: 15px;
-    line-height: 1.5;
+.prank-card p {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: white;
+    font-weight: 500;
+}
+
+/* Confetti */
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
 }
 
 /* Animations */
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 600px) {
-    #question-container, #prank {
-        width: 90%;
-        padding: 20px;
-    }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
     h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
-
-    button {
-        width: 100%;
-        padding: 15px;
+    
+    .card, .prank-card {
+        padding: 1.5rem;
     }
-
-    input[type="text"], textarea {
-        width: 100%;
-        padding: 15px;
+    
+    .question {
+        font-size: 1.2rem;
     }
 }
 
-.fade-in {
-    animation: fadeIn 1s ease-in-out;
-    opacity: 0;
-    animation-fill-mode: forwards;
-    margin-bottom: 15px;
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .card, .prank-card {
+        padding: 1.2rem;
+    }
+    
+    .btn-next {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
 }
