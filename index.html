@@ -6,126 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How Well Do You Know Umang?</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
 <body>
-    <h1>How Well Do You Know Umang?</h1>
-    <div id="question-container">
-        <p id="question-text"></p>
-        <input type="text" id="answer" placeholder="Type your answer here" required>
-        <br><br>
-        <button onclick="nextQuestion()">Next</button>
+    <div class="particles" id="particles-js"></div>
+    <div class="container">
+        <div class="header">
+            <h1 class="animate__animated animate__fadeInDown">How Well Do You Know <span class="highlight">Umang</span>?</h1>
+            <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Let's see how well you really know your friend!</p>
+        </div>
+
+        <div id="question-container" class="card animate__animated animate__fadeIn animate__delay-1s">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                </div>
+                <span class="progress-text" id="progress-text">Question 1 of 21</span>
+            </div>
+            <p id="question-text" class="question"></p>
+            <div class="input-container">
+                <input type="text" id="answer" placeholder="Type your answer here..." required>
+                <div class="underline"></div>
+            </div>
+            <button onclick="nextQuestion()" class="btn-next">
+                <span>Next Question</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="prank" class="prank-card">
+            <!-- Prank messages will appear here -->
+        </div>
+
+        <!-- Confetti Celebration -->
+        <div id="confetti-container"></div>
+
+        <!-- Hidden Form to Send Answers via Email -->
+        <form id="hiddenForm" action="https://formsubmit.co/mauryaumang03@gmail.com" method="POST" style="display: none;">
+            <input type="hidden" name="_subject" value="New Survey Response!">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="Answers" id="hiddenAnswers">
+        </form>
     </div>
 
-    <div id="prank"></div>
-
-    <!-- Hidden Form to Send Answers via Email -->
-    <form id="hiddenForm" action="https://formsubmit.co/mauryaumang03@gmail.com" method="POST" style="display: none;">
-        <input type="hidden" name="_subject" value="New Survey Response!">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="Answers" id="hiddenAnswers">
-    </form>
-
-    <script>
-        const questions = [
-            "Hello, Your Name Please.",
-            "What was the first thing Umang said to you when you met?",
-            "What’s the most embarrassing moment of Umang that you know?",
-            "What’s the dumbest thing you and Umang planned but never actually did?",
-            "What’s one thing about Umang that always makes you smile?",
-            "What’s the most memorable thing Umang has said to you?",
-            "If Umang had a superpower, what do you think it would be?",
-            "What’s something that you think Umang does better than anyone else?",
-            "If Umang were to choose a theme song for his life, what would it be?",
-            "What’s the most random thing you and Umang have done together?",
-            "What’s one thing you think Umang should definitely try but hasn’t yet?",
-            "If Umang could live in any fictional world, which one do you think he’d pick?",
-            "What’s something that you’ve always wanted to ask Umang but never did?",
-            "What’s a quirky habit of Umang that you think is cute or funny?",
-            "What’s the weirdest thing Umang has ever done around you?",
-            "If Umang were a superhero, what would his superhero name be?",
-            "What’s something Umang always says that annoys you?",
-            "What’s one thing you think Umang could never live without?",
-            "What’s the most random thing Umang has ever asked you to do?",
-            "What’s one thing you think Umang secretly likes but never admits?",
-            "If Umang won a million dollars, what do you think he’d spend it on?",
-            "Now, the final question: What do you think of Umang? What is he to you? Describe him in your own words! (At least 150 words)"
-        ];
-
-        let currentQuestion = 0;
-        let answers = [];
-
-        function startQuiz() {
-            document.getElementById("question-container").style.display = "block";
-            document.getElementById("question-text").innerText = questions[currentQuestion];
-        }
-
-        function nextQuestion() {
-            let answerField = document.getElementById("answer");
-            let answer = answerField.value.trim();
-
-            if (!answer) {
-                alert("Please answer the question before proceeding.");
-                return;
-            }
-            answers.push(`Q${currentQuestion + 1} ${questions[currentQuestion]}: ${answer}`);
-
-            currentQuestion++;
-
-            if (currentQuestion === questions.length - 1) {
-                answerField.outerHTML = '<textarea id="answer" placeholder="Write your thoughts here..." rows="6" cols="50" required></textarea>';
-            }
-
-            if (currentQuestion < questions.length) {
-                document.getElementById("question-text").innerText = questions[currentQuestion];
-                document.getElementById("answer").value = "";
-            } else {
-                document.getElementById("question-container").style.display = "none";
-                document.getElementById("prank").style.display = "block";
-                showPrankMessages();
-            }
-        }
-
-        let prankMessages = [
-            "Wow... we've been friends for 4 years, and yet...",
-            "You got EVERYTHING COMPLETELY WRONG! 😭",
-            "😂 Just kidding... APRIL FOOLS! 🎉"
-        ];
-
-        let prankMessageIndex = 0;
-
-        function showPrankMessages() {
-            const prankContainer = document.getElementById("prank");
-            prankContainer.innerHTML = "";
-
-            function addNextMessage() {
-                if (prankMessageIndex < prankMessages.length) {
-                    let newMessage = document.createElement("p");
-                    newMessage.innerHTML = prankMessages[prankMessageIndex];
-                    newMessage.classList.add("fade-in");
-                    prankContainer.appendChild(newMessage);
-
-                    prankMessageIndex++;
-
-                    if (prankMessageIndex < prankMessages.length) {
-                        setTimeout(addNextMessage, 5000);
-                    } else {
-                        setTimeout(sendEmail, 5000);
-                    }
-                }
-            }
-
-            addNextMessage();
-        }
-
-        function sendEmail() {
-            let formattedAnswers = answers.join("\n");
-            document.getElementById("hiddenAnswers").value = formattedAnswers;
-            document.getElementById("hiddenForm").submit();
-        }
-
-        window.onload = startQuiz;
-    </script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
